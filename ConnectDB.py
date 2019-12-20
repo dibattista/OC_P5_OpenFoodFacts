@@ -1,8 +1,7 @@
 """This is the class to connect at the data base"""
 
-
+import random;
 import mysql.connector;
-import random
 
 from mysql.connector import Error
 
@@ -144,6 +143,7 @@ class ConnectDB:
         cursor.execute(sql)
         print("CREATE table substitut_aliment")
 
+##### interaction user
 
     def get_categories(self):
         cursor = self.mydb.cursor()
@@ -155,6 +155,7 @@ class ConnectDB:
         for x in myresult:
             print(x)
 
+
     def get_aliment(self, categories_id):
         cursor = self.mydb.cursor()
 
@@ -164,6 +165,7 @@ class ConnectDB:
         for x in myresult:
             print(x)
 
+
     def get_nutrition_grade(self, id):
         cursor = self.mydb.cursor()
         cursor.execute("SELECT nutrition_grades FROM aliment where id =" + id)
@@ -172,12 +174,14 @@ class ConnectDB:
             print('result in ConnectDB', result[0])
             return result[0]
 
+
     def get_substitute_aliment(self, categories_id, nutri_grade_choose):
         cursor = self.mydb.cursor()
         symbol = nutri_grade_choose
 
         # trouver des aliments avec un nutrition grades inferieur a celui de la présente recherche (nutri_grade_choose) dans la categories choisi
-        cursor.execute("SELECT id, product_name, stores, url FROM aliment WHERE categories_id =" + categories_id + " AND nutrition_grades < '%s'" % symbol)
+        cursor.execute(
+            "SELECT id, product_name, stores, url FROM aliment WHERE categories_id =" + categories_id + " AND nutrition_grades < '%s'" % symbol)
 
         myresult = cursor.fetchall()
         # because i don't know how to choose the result of the multiple substitue a have, i propose random
@@ -193,6 +197,7 @@ class ConnectDB:
         self.mydb.commit()
 
         print(cursor.rowcount, "save new substitute")
+
 
 
 
