@@ -1,6 +1,7 @@
+# coding=utf-8
 
-from Request import Request
-from ConnectDB import ConnectDB
+from apiManager import ApiManager
+from DataBase.ConnectDB import ConnectDB
 
 # """
 #         ### TO DO WRITE GOOD COMMANTE:
@@ -14,7 +15,7 @@ def export_data_json(products_values):
         result = {'product_name': '', 'stores': '', 'url': '', 'nutrition_grades': ''}
         try:
             for k in result:
-                ### ici on récupère la valeur pour chaque key comme product[product_name] = Nesquik
+                ### ici on recupère la valeur pour chaque key comme product[product_name] = Nesquik
                 result[k] = product[k]
             ### ici on construit une list ou on aurra k la key et leurs valeurs dans un dictonary avec les quatres key
             ### comme dans result
@@ -27,7 +28,8 @@ def export_data_json(products_values):
 
 class Data():
     def __init__(self):
-        self.request = Request()
+        ## changer name of self.request
+        self.request = ApiManager()
         # CONNECTION TO DB
         self.db = ConnectDB()
 

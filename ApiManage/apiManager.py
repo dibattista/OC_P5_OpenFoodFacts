@@ -2,11 +2,11 @@
 import requests, pprint;
 pp = pprint.PrettyPrinter(indent=4)
 
-class Request:
+class ApiManager:
     def __init__(self):
         ## !!!! THE products = requests.get(url=self.URL, params=self.PARAMS) Doesnt' work some time try a while?
         self.URL = "https://world.openfoodfacts.org/cgi/search.pl?tagtype_0=categories&countries=France&tag_contains_0=contains&search_simple=1&action=process&page_size=1&page=1&json=1"
-        self.categories = ['Chocolates', 'Fishes', 'Fruits', 'Pastas', 'Wines']
+        self.categories = ['Chocolate', 'Fish', 'Fruit', 'Pasta', 'Milk']
 
     def json_data(self, category):
         payload = {'tag_0': category }
