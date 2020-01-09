@@ -2,8 +2,8 @@
 
 """This is the class to connect at the data base"""
 
-import random;
-import mysql.connector;
+import random
+import mysql.connector
 
 from mysql.connector import Error
 
@@ -45,8 +45,8 @@ class ConnectDB:
 
     def insert_aliments(self, val_aliment, categories_id):
         """
-                       ### TO DO WRITE GOOD COMMENTE
-                       ici on ajoute les aliemnts trouver dans l'api openfoodfacts dans la table aliment
+                    ### TO DO WRITE GOOD COMMENTE
+                    ici on ajoute les aliemnts trouver dans l'api openfoodfacts dans la table aliment
         """
         # the cursor permet l'insert en base
         cursor = self.mydb.cursor()
@@ -91,10 +91,10 @@ class ConnectDB:
         cursor = self.mydb.cursor()
 
         sql = 'CREATE TABLE IF NOT EXISTS `projet_5`.`categories`' \
-              '(`id` INT NOT NULL auto_increment, ' \
-              '`name` VARCHAR(30) NOT NULL,' \
-              'PRIMARY KEY (`id`))' \
-              'ENGINE = InnoDB;'
+            '(`id` INT NOT NULL auto_increment, ' \
+            '`name` VARCHAR(30) NOT NULL,' \
+            'PRIMARY KEY (`id`))' \
+            'ENGINE = InnoDB;'
 
         self.mydb.commit()
         cursor.execute(sql)
@@ -105,20 +105,20 @@ class ConnectDB:
         cursor = self.mydb.cursor()
 
         sql = 'CREATE TABLE IF NOT EXISTS `projet_5`.`aliment` (' \
-              '`id` INT NOT NULL auto_increment, ' \
-              '`product_name` VARCHAR(1000) NOT NULL, ' \
-              '`stores` VARCHAR(1000) NOT NULL, ' \
-              '`url` VARCHAR(1000) NOT NULL, ' \
-              '`nutrition_grades` VARCHAR(1000) NOT NULL, ' \
-              '`categories_id` INT NOT NULL, ' \
-              'PRIMARY KEY (`id`), ' \
-              'INDEX `fk_aliment_categories1_idx` (`categories_id` ASC) VISIBLE, ' \
-              'CONSTRAINT `fk_aliment_categories1` ' \
-              'FOREIGN KEY (`categories_id`) ' \
-              'REFERENCES `projet_5`.`categories` (`id`) ' \
-              'ON DELETE NO ACTION ' \
-              'ON UPDATE NO ACTION) ' \
-              'ENGINE = InnoDB;'
+            '`id` INT NOT NULL auto_increment, ' \
+            '`product_name` VARCHAR(1000) NOT NULL, ' \
+            '`stores` VARCHAR(1000) NOT NULL, ' \
+            '`url` VARCHAR(1000) NOT NULL, ' \
+            '`nutrition_grades` VARCHAR(1000) NOT NULL, ' \
+            '`categories_id` INT NOT NULL, ' \
+            'PRIMARY KEY (`id`), ' \
+            'INDEX `fk_aliment_categories1_idx` (`categories_id` ASC) VISIBLE, ' \
+            'CONSTRAINT `fk_aliment_categories1` ' \
+            'FOREIGN KEY (`categories_id`) ' \
+            'REFERENCES `projet_5`.`categories` (`id`) ' \
+            'ON DELETE NO ACTION ' \
+            'ON UPDATE NO ACTION) ' \
+            'ENGINE = InnoDB;'
 
         self.mydb.commit()
         cursor.execute(sql)
@@ -129,16 +129,16 @@ class ConnectDB:
         cursor = self.mydb.cursor()
 
         sql = 'CREATE TABLE IF NOT EXISTS `projet_5`.`substitut_aliment` (' \
-                  '`idsubstitut_aliment` INT NOT NULL auto_increment, ' \
-                  '`aliment_id` INT NOT NULL, ' \
-                  'PRIMARY KEY (`idsubstitut_aliment`), ' \
-                  'INDEX `fk_substitut_aliment_aliment_idx` (`aliment_id` ASC) VISIBLE, ' \
-                  'CONSTRAINT `fk_substitut_aliment_aliment` ' \
-                  'FOREIGN KEY (`aliment_id`) ' \
-                  'REFERENCES `projet_5`.`aliment` (`id`) ' \
-                  'ON DELETE NO ACTION ' \
-                  'ON UPDATE NO ACTION) ' \
-                  'ENGINE = InnoDB;'
+                '`idsubstitut_aliment` INT NOT NULL auto_increment, ' \
+                '`aliment_id` INT NOT NULL, ' \
+                'PRIMARY KEY (`idsubstitut_aliment`), ' \
+                'INDEX `fk_substitut_aliment_aliment_idx` (`aliment_id` ASC) VISIBLE, ' \
+                'CONSTRAINT `fk_substitut_aliment_aliment` ' \
+                'FOREIGN KEY (`aliment_id`) ' \
+                'REFERENCES `projet_5`.`aliment` (`id`) ' \
+                'ON DELETE NO ACTION ' \
+                'ON UPDATE NO ACTION) ' \
+                'ENGINE = InnoDB;'
 
 
         self.mydb.commit()

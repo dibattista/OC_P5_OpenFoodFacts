@@ -1,7 +1,7 @@
 # coding=utf-8
 
-from apiManager import ApiManager
-from DataBase.ConnectDB import ConnectDB
+from ApiManage.apiManager import ApiManager
+from DataBase.connectDB import ConnectDB
 
 # """
 #         ### TO DO WRITE GOOD COMMANTE:
@@ -28,29 +28,28 @@ def export_data_json(products_values):
 
 class Data():
     def __init__(self):
-        ## changer name of self.request
-        self.request = ApiManager()
+        ## changer name of self.api_data
+        self.api_data = ApiManager()
         # CONNECTION TO DB
         self.db = ConnectDB()
 
     def add_categories(self):
-        for i in range(len(self.request.categories)):
-            self.db.insert_category(self.request.categories[i])
+        for i in range(len(self.api_data.categories)):
+            self.db.insert_category(self.api_data.categories[i])
 
 
     def insert_aliments(self):
-        for i in range(len(self.request.categories)):
+        for i in range(len(self.api_data.categories)):
             # ici on recupère les produits des categories choisie grace à la requet get de API openfoodfacts
-            products_values = self.request.json_data(self.request.categories[i])
-            #### ici on nettoye le resulta de la request get obtenu si dessus
+            products_values = self.api_data.json_data(self.api_data.categories[i])
+            #### ici on nettoye le resulta de la api_data get obtenu si dessus
             products_values_clean = export_data_json(products_values)
 
-        for product_clean in products_values_clean:
-            # print('product_clean', product_clean)
-            # bien garder le i + 1 car index commance à 0 et du coup si on ne met pas + 1 cela ne marche pas
-            ## si dessous on fait insert des aliment en fonction des categories choisi et leur index (i) qui et lie
-            ## la table aliment par une FOREIGN KEY a la table categories
-            self.db.insert_aliments(product_clean, i + 1)
+            for product_clean in products_values_clean:
+                # bien garder le i + 1 car index commance à 0 et du coup si on ne met pas + 1 cela ne marche pas
+                ## si dessous on fait insert des aliment en fonction des categories choisi et leur index (i) qui et lie
+                ## la table aliment par une FOREIGN KEY a la table categories
+                self.db.insert_aliments(product_clean, i + 1)
 
 
 
