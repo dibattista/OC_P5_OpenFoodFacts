@@ -1,5 +1,6 @@
 from BetterFood.selectApiData import SelectApi
 import pprint
+import os
 pp = pprint.PrettyPrinter(indent=4)
 
 class BetterFood:

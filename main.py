@@ -6,10 +6,13 @@
 ### alias python=python3
 
 import argparse
+import os
+
 
 from BetterFood.betterFood import BetterFood
 from DataBase.createDB import NewDB
 from ApiManage.processingApiData import Data
+
 def main():
 
     ap = argparse.ArgumentParser()

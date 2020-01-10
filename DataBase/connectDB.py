@@ -3,6 +3,7 @@
 """This is the class to connect at the data base"""
 
 import random
+import os
 import mysql.connector
 
 from mysql.connector import Error
@@ -17,10 +18,11 @@ class ConnectDB:
         """
         try:
             self.mydb = mysql.connector.connect(
-                host='localhost',
-                database='projet_5',
-                user='root',
-                password='8783Bb@10071957')
+                host=os.environ.get("YOUR_HOST", ''),
+                database=os.environ.get("NAME_DATABASE", ''),
+                user=os.environ.get("USER_NAME", ''),
+                password=os.environ.get("PASSWORD_DATABASE", '')
+            )
             if self.mydb.is_connected():
                 print('Connected to MySQL database projet_5')
 
