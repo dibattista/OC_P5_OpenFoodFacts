@@ -1,3 +1,4 @@
-request
+requests=2.22.0
 tkinter
-mysql.connector
+mysql-connector-python==8.0.18
+
