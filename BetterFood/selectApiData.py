@@ -29,12 +29,14 @@ class SelectApi:
 
     def get_categories(self):
         cursor = self.mydb.cursor()
-
+        result = []
         cursor.execute("SELECT * FROM categories;")
-        print('X          Choose a number from a categories list:       X')
+        #print('X          Choose a number from a categories list:       X')
         myresult = cursor.fetchall()
         for x in myresult:
-            print(x)
+            result.append(x)
+            #print(x)
+        return result
 
     def get_aliment(self, categories_id):
         cursor = self.mydb.cursor()
