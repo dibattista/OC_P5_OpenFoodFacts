@@ -21,40 +21,31 @@ class Page1(Page):
         # self ou pas self?
         self.get_categories = self.api_select.get_categories()
 
-        Page.__init__(self, *args, **kwargs)
+        #Page.__init__(self, *args, **kwargs)
+        
+        ## comment revenir a la page d'avant?
+
+        ###############################  Radiobutton
+        # est-ce que ce tk frame suprime le main?
+        tk.Frame.__init__(self, *args, **kwargs)
         label = tk.Label(
             self, text="P1 - Choose a number from a categories list")
         label.pack(side="top", fill="both", expand=False)
-        ## comment revenir a la page d'avant?
+        def open_p3():
+            print('in p3', v.get())
+        p3 = Page3(self)
+        container = tk.Frame(self)
+        container.pack(side="top", fill="both", expand=True)
+        p3.place(in_=container, x=0, y=0, relwidth=1, relheight=1)
 
 
-        ###############################  Checkbutton
-        # pourquoi chkValue selection toutes les cases
-        def checkBoxText(st):
-                print('st before if: ', st)
-                if st == 0:
-                    st = "Disabled"
-                    print('st', st)
-                if st >= 1:
-                    st = "Enabled"
-                    print('st', st)
-                return st
+        v = tk.StringVar()
 
-        cbVariables = {}
-        cbTexts = {}
-        for key, value in self.get_categories:
-            # cbTexts[key] = tk.StringVar()
-            # cbTexts[key].set(value)
-            # cbVariables[key] = tk.IntVar()
-            # cbVariables[key].set(checkBoxText(key))
-            
-            # categories = tk.Checkbutton(
-            #     self, text=cbTexts[key].get(), variable=cbVariables[key].get())
-            categories = tk.Checkbutton(self, text=value)
+        for text, value in self.get_categories:
+            tk.Radiobutton(self, text=value, variable=v, value=value, indicator=0,
+                        background="light blue", command=lambda: open_p3()).pack(side="top", fill="both")
 
-            categories.pack(side="top", fill="both")
-
-        ################################ END  Checkbutton
+        ################################ END  Radiobutton
 
 class Page2(Page):
     def __init__(self, *args, **kwargs):
@@ -62,12 +53,20 @@ class Page2(Page):
             label = tk.Label(self, text="This is page 2")
             label.pack(side="top", fill="both", expand=True)
 
+
+class Page3(Page):
+   def __init__(self, *args, **kwargs):
+        Page.__init__(self, *args, **kwargs)
+        label = tk.Label(self, text="This is page 3")
+        label.pack(side="top", fill="both", expand=True)
+
 class MainPage(tk.Frame):
     # test tkinter
     def __init__(self, *args, **kwargs):
         tk.Frame.__init__(self, *args, **kwargs)
         p1 = Page1(self)
         p2 = Page2(self)
+        p3 = Page3(self)
 
         #buttonframe = tk.Frame(self)
         container = tk.Frame(self)
@@ -77,6 +76,8 @@ class MainPage(tk.Frame):
 
         p1.place(in_= container, x=0, y=0, relwidth=1, relheight=1)
         p2.place(in_=container, x=0, y=0, relwidth=1, relheight=1)
+        p3.place(in_=container, x=0, y=0, relwidth=1, relheight=1)
+
 
         b1 = tk.Button(
             self, text="1- Remplacer un aliment.", command=p1.lift)
@@ -85,6 +86,8 @@ class MainPage(tk.Frame):
 
         b1.place(x=150, y=250)
         b2.place(x=350, y=250)
+
+
 
 
 

@@ -14,18 +14,15 @@ class SelectApi:
             ### TO DO WRITE GOOD COMMENTE:
             connection a la db
         """
-        try:
-            self.mydb = mysql.connector.connect(
-                host=os.environ.get("YOUR_HOST", ''),
-                database=os.environ.get("NAME_DATABASE", ''),
-                user=os.environ.get("USER_NAME", ''),
-                password=os.environ.get("PASSWORD_DATABASE", '')
-            )
-            if self.mydb.is_connected():
-                print('Connected to MySQL database projet_5')
 
-        except Error as e:
-            print(e)
+        self.mydb = mysql.connector.connect(
+            host=os.environ.get("YOUR_HOST", ''),
+            database=os.environ.get("NAME_DATABASE", ''),
+            user=os.environ.get("USER_NAME", ''),
+            password=os.environ.get("PASSWORD_DATABASE", '')
+        )
+        if self.mydb.is_connected():
+            print('Connected to MySQL database projet_5')
 
     def get_categories(self):
         cursor = self.mydb.cursor()
