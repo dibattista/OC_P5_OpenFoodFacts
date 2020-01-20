@@ -1,4 +1,4 @@
-from BetterFood.selectApiData import SelectApi
+from GUI.selectApiData import SelectApi
 import tkinter as tk
 
 import pprint
@@ -9,41 +9,38 @@ pp = pprint.PrettyPrinter(indent=4)
     
 class Page(tk.Frame):
     def __init__(self, *args, **kwargs):
-        tk.Frame.__init__(self, *args, **kwargs)
+        tk.Frame.__init__(self, *args, **kwargs, bg="grey")
     def show(self):
         self.lift()
 
 
 class Page1(Page):
     def __init__(self, *args, **kwargs):
-        ##????? cela créer une nouvelle fenêtre pour le checkbutton comment faire pour rester dans la meme page?:
         self.api_select = SelectApi()
-        # self ou pas self?
         self.get_categories = self.api_select.get_categories()
-
-        #Page.__init__(self, *args, **kwargs)
         
-        ## comment revenir a la page d'avant?
+        ## ??????? comment revenir a la page d'avant?
 
         ###############################  Radiobutton
         # est-ce que ce tk frame suprime le main?
-        tk.Frame.__init__(self, *args, **kwargs)
+        Page.__init__(self, *args, **kwargs)
+        
         label = tk.Label(
-            self, text="P1 - Choose a number from a categories list")
-        label.pack(side="top", fill="both", expand=False)
+            self, text="(p1)Choisissez votre categorie d'alliment")
+        label.pack(side="top", fill=tk.X, padx=100)
         def open_p3():
             print('in p3', v.get())
-        p3 = Page3(self)
-        container = tk.Frame(self)
-        container.pack(side="top", fill="both", expand=True)
-        p3.place(in_=container, x=0, y=0, relwidth=1, relheight=1)
+        # p3 = Page3(self)
+        # container = tk.Frame(self)
+        # container.pack(side="top", fill="both", expand=True)
+        # p3.place(in_=container, x=0, y=0, relwidth=1, relheight=1)
 
 
         v = tk.StringVar()
 
         for text, value in self.get_categories:
             tk.Radiobutton(self, text=value, variable=v, value=value, indicator=0,
-                        background="light blue", command=lambda: open_p3()).pack(side="top", fill="both")
+                        background="light blue", command=lambda: open_p3()).pack(fill=tk.X, padx=100)
 
         ################################ END  Radiobutton
 
@@ -68,10 +65,8 @@ class MainPage(tk.Frame):
         p2 = Page2(self)
         p3 = Page3(self)
 
-        #buttonframe = tk.Frame(self)
         container = tk.Frame(self)
 
-        #buttonframe.pack(side="top", fill="x", expand=False)
         container.pack(side="top", fill="both", expand=True)
 
         p1.place(in_= container, x=0, y=0, relwidth=1, relheight=1)

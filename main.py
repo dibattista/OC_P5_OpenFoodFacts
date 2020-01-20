@@ -9,7 +9,7 @@ import argparse
 import os
 
 
-from BetterFood.betterFood import BetterFood, Window
+from GUI.gui import Window
 from DataBase.createDB import NewDB
 from ApiManage.processingApiData import Data
 
@@ -32,9 +32,6 @@ def main():
     else:
         window = Window()
         window
-
-        #start = BetterFood()
-        #start.startFinding()
 
 
 if __name__ == "__main__":
