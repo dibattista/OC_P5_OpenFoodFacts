@@ -23,13 +23,16 @@ def main():
 
 
     if args.new:
+        # create new DB
         new_db = NewDB()
         new_db.create_db()
-        ## add datas
+
+        ## Add datas
         data_api = Data()
         data_api.add_categories()
         data_api.insert_aliments()
     else:
+        # start GUI
         window = Window()
         window
 

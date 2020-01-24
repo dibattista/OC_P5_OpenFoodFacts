@@ -41,9 +41,7 @@ class SelectApi:
         cursor.execute(
             "SELECT id, product_name, nutrition_grades FROM aliment WHERE categories_id = " + categories_id)
         myresult = cursor.fetchall()
-        print('X           Choose a number from a aliment list:         X')
-        for x in myresult:
-            print(x)
+        return myresult
 
     def get_nutrition_grade(self, id):
         cursor = self.mydb.cursor()
@@ -59,7 +57,7 @@ class SelectApi:
 
         # trouver des aliments avec un nutrition grades inferieur a celui de la presente recherche (nutri_grade_choose) dans la categories choisi
         cursor.execute(
-            "SELECT id, product_name, stores, url FROM aliment WHERE categories_id =" + categories_id + " AND nutrition_grades < '%s'" % symbol)
+            "SELECT * FROM aliment WHERE categories_id =" + categories_id + " AND nutrition_grades < '%s'" % symbol)
 
         myresult = cursor.fetchall()
         # because i don't know how to choose the result of the multiple substitue a have, i propose random
@@ -81,7 +79,7 @@ class SelectApi:
         cursor = self.mydb.cursor()
         cursor.execute("SELECT * FROM aliment where id = '%d'" % id)
         myresult = cursor.fetchall()
-        print('myresult', myresult)
+        print('myresult in get_aliment_substitute selectApiData', myresult)
 
     def get_all_substitute(self):
         cursor = self.mydb.cursor()
