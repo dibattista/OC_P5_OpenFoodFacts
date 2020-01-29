@@ -9,7 +9,6 @@ from mysql.connector import Error
 
 class SelectApi:
     def __init__(self):
-        print('test select api select')
         """
             ### TO DO WRITE GOOD COMMENTE:
             connection a la db
@@ -21,8 +20,8 @@ class SelectApi:
             user=os.environ.get("USER_NAME", ''),
             password=os.environ.get("PASSWORD_DATABASE", '')
         )
-        if self.mydb.is_connected():
-            print('Connected to MySQL database projet_5')
+        # if self.mydb.is_connected():
+        #     print('Connected to MySQL database projet_5')
 
     def get_categories(self):
         cursor = self.mydb.cursor()
@@ -53,15 +52,25 @@ class SelectApi:
 
     def get_substitute_aliment(self, categories_id, nutri_grade_choose):
         cursor = self.mydb.cursor()
-        symbol = nutri_grade_choose
 
+        if nutri_grade_choose == 'a':
+                cursor.execute(
+                    "SELECT * FROM aliment WHERE categories_id =" + categories_id + " AND nutrition_grades = 'a'")
+                myresult = cursor.fetchall()
+                #print('myresult in get_substitute_aliment SELECTAPIDATA in IF: ', myresult)
+                # because i don't know how to choose the result of the multiple substitue a have, i propose random
+                #return random.choice(myresult)
+                return myresult
         # trouver des aliments avec un nutrition grades inferieur a celui de la presente recherche (nutri_grade_choose) dans la categories choisi
-        cursor.execute(
-            "SELECT * FROM aliment WHERE categories_id =" + categories_id + " AND nutrition_grades < '%s'" % symbol)
-
-        myresult = cursor.fetchall()
-        # because i don't know how to choose the result of the multiple substitue a have, i propose random
-        return random.choice(myresult)
+        else:
+            cursor.execute(
+                "SELECT * FROM aliment WHERE categories_id =" + categories_id + " AND nutrition_grades < '%s'" % nutri_grade_choose)
+    
+            myresult = cursor.fetchall()
+            #print('myresult in get_substitute_aliment SELECTAPIDATA in ELSE: ', myresult)
+            # because i don't know how to choose the result of the multiple substitue a have, i propose random
+            #return random.choice(myresult)
+            return myresult
 
     def backup_substitute(self, substitute):
         cursor = self.mydb.cursor()
@@ -79,7 +88,7 @@ class SelectApi:
         cursor = self.mydb.cursor()
         cursor.execute("SELECT * FROM aliment where id = '%d'" % id)
         myresult = cursor.fetchall()
-        print('myresult in get_aliment_substitute selectApiData', myresult)
+        return myresult
 
     def get_all_substitute(self):
         cursor = self.mydb.cursor()

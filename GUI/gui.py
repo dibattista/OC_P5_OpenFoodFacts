@@ -4,8 +4,12 @@ from tkinter import font as tkfont
 
 import pprint
 import os
+import random
 
 pp = pprint.PrettyPrinter(indent=4)
+
+var_categorie = '0'
+var_aliment = '0'
 
 class MainPage(tk.Tk):
     def __init__(self, *args, **kwargs):
@@ -15,18 +19,19 @@ class MainPage(tk.Tk):
         
 
         self.title_font = tkfont.Font(family='Helvetica', size=22, weight="bold")
-        container = tk.Frame(self)
-        container.pack(side="top", fill="both", expand=True)
-        container.grid_rowconfigure(0, weight=1)
-        container.grid_columnconfigure(0, weight=1)
+        self.container = tk.Frame(self)
+        self.container.pack(side="top", fill="both", expand=True)
+        self.container.grid_rowconfigure(0, weight=1)
+        self.container.grid_columnconfigure(0, weight=1)
 
         self.frames = {}
         for F in (PageOne, PageTwo, PageThree, PageFour, PageFive):
             page_name = F.__name__
-            frame = F(parent=container, controller=self)
+            frame = F(parent=self.container, controller=self)
             self.frames[page_name] = frame
             frame.grid(row=0, column=0, sticky="nsew")
         
+        #print('self.frames IN MAIN PAGE', self.frames)
         self.show_frame("PageOne")
     
     def show_frame(self, page_name):
@@ -57,18 +62,23 @@ class PageTwo(tk.Frame):
     def __init__(self, parent, controller):
         self.api_select = SelectApi()
         self.get_categories = self.api_select.get_categories()
-        self.val = '1'
 
         tk.Frame.__init__(self, parent, bg='#f0f0f0')
-        label = tk.Label(self, text="This is Page 2",
-                        font=controller.title_font)
+        label = tk.Label(self, text="This is Page 2")
         label.pack(side="top", fill="x", pady=150)
+        v = tk.StringVar()
 
         def get_val():
-            print('how to send v.get() tp P3?',  v.get())
+            global var_categorie
+            var_categorie = v.get()
+
+            #### ici on update la page 3
+            frame = PageThree(parent=controller.container,
+                            controller=controller)
+            controller.frames["PageThree"] = frame
+            frame.grid(row=0, column=0, sticky="nsew")
 
         # choose categories
-        v = tk.StringVar()
 
         for value in self.get_categories:
             r1 = tk.Radiobutton(self, text=value[1], variable=v, value=value[0], indicator=0,
@@ -84,11 +94,10 @@ class PageThree(tk.Frame):
     def __init__(self, parent, controller):
         self.api_select = SelectApi()
         # TO DO !!!! - recupérer la value '1' categorie
-        self.get_aliment = self.api_select.get_aliment('1')
+        self.get_aliment = self.api_select.get_aliment(var_categorie)
 
         tk.Frame.__init__(self, parent, bg='#f0f0f0')
-        label = tk.Label(self, text="This is Page 3",
-                        font=controller.title_font)
+        label = tk.Label(self, text="This is Page 3")
         label.pack(side="top", fill="x", pady=100)
 
         label_2 = tk.Label(self, text="Comment récupérer la value de P2????")
@@ -96,10 +105,22 @@ class PageThree(tk.Frame):
 
         v = tk.StringVar()
 
+        def get_val():
+            global var_aliment
+            #print(' v.get() in P33333',  v.get())
+            var_aliment = v.get()
+
+            #### ici on update la page 3
+            frame = PageFour(parent=controller.container,
+                            controller=controller)
+            controller.frames["PageFour"] = frame
+            frame.grid(row=0, column=0, sticky="nsew")
+
         for value in self.get_aliment:
-                    r1 = tk.Radiobutton(self, text=value[1], variable=v, value=value[0], indicator=0,
-                                        background="light blue", command=lambda: controller.show_frame("PageFour"))
-                    r1.pack(fill=tk.X, padx=200)
+            #print('value in for P3', value)
+            r1 = tk.Radiobutton(self, text=value[1], variable=v, value=value[0], indicator=0,
+                            background="light blue", command=lambda: [get_val(), controller.show_frame("PageFour")])
+            r1.pack(fill=tk.X, padx=200)
 
         button = tk.Button(self, text="Go back",
                         command=lambda: controller.show_frame("PageTwo"))
@@ -111,10 +132,22 @@ class PageFour(tk.Frame):
         self.api_select = SelectApi()
         # TO DO !!!! - ici change le '1' par aliment_choose
         # TO DO !!!! - il faut la categorie aussi
-        categorie = '1'
-        nutri_grade = self.api_select.get_nutrition_grade('1')
-        substitu = self.api_select.get_substitute_aliment(
-            categorie, nutri_grade)
+        self.categorie = var_categorie
+        #print('var_aliment IN P4', self.categorie)
+        self.nutri_grade = self.api_select.get_nutrition_grade(var_aliment)
+        print('self.nutri_grade in P4 GUI: ', self.nutri_grade)
+        print('self.categorie in P4 GUI: ', self.categorie)
+        substitue = ['0','1','2','3','4']
+        subs = self.api_select.get_substitute_aliment(
+            self.categorie, self.nutri_grade)
+        
+        for s in subs:
+            substitue = s
+            #substitue = random.choice(subs)
+        print('substitue in P4 GUI: ', substitue)
+
+        
+        # print('substitu', substitu)
 
         # TO DO !!!! - comment je veut afficher substitu
         # (5, 'Ligne gourmande', 'Magasins U, Carrefour', 'https://world.openfoodfacts.org/product/3664346306621/ligne-gourmande-poulain')
@@ -122,8 +155,12 @@ class PageFour(tk.Frame):
         #             self.api_select.backup_substitute(substitu)
 
         tk.Frame.__init__(self, parent, bg='#f0f0f0')
+        label = tk.Label(self, text="This is Page 4",
+                        font=controller.title_font)
+        label.pack(side="top", fill="x", pady=100)
+
         container_P4 = tk.Frame(self)
-        container_P4.pack(pady=200)
+        container_P4.pack()
         container_P4.grid_rowconfigure(0, weight=1)
         container_P4.grid_columnconfigure(0, weight=1)
 
@@ -160,10 +197,14 @@ class PageFour(tk.Frame):
         label_7.grid(row=2, column=1)
         label_8.grid(row=3, column=1)
 
-        var_5.set(substitu[1])
-        var_6.set(substitu[2])
-        var_7.set(substitu[3])
-        var_8.set(substitu[4])
+        var_5.set(substitue[1])
+        var_6.set(substitue[2])
+        var_7.set(substitue[3])
+        var_8.set(substitue[4])
+
+        button = tk.Button(self, text="Go back",
+                        command=lambda: controller.show_frame("PageTwo"))
+        button.pack()
 
 
 
@@ -178,9 +219,22 @@ class PageFive(tk.Frame):
                         font=controller.title_font)
         label.pack(side="top", fill="x", pady=10)
 
+        var_1 = tk.StringVar()
+
         # TO DO !!!! - comment j'affiche la liste ????
         for id in list_aliment_id:
-                self.api_select.get_aliment_substitute(id[0])
+                all_aliment = self.api_select.get_aliment_substitute(id[0])
+                print('all_aliment', all_aliment)
+
+                label_1 = tk.Label(self, textvariable=var_1)
+                label_1.pack()
+                var_1.set(all_aliment)
+        
+        button = tk.Button(self, text="Go back",
+                        command=lambda: controller.show_frame("PageOne"))
+        button.pack()
+
+
 
 
 
@@ -188,31 +242,3 @@ class Window:
     def __init__(self):
         app = MainPage()
         app.mainloop()
-
-
-class BetterFood:
-    def __init__(self):
-        self.api_select = SelectApi()
-    
-    def startFinding(self):
-        first_question = input(
-            "1- Quel aliment souhaitez-vous remplacer ?, 2- Retrouver mes aliments substitués.")
-        
-        if first_question == "1":
-            categorie = input(self.api_select.get_categories())
-            aliment_choose = input(self.api_select.get_aliment(categorie))
-            nutri_grade = self.api_select.get_nutrition_grade(aliment_choose)
-            ## print('nutri_grade in p5', nutri_grade)
-            substitu = self.api_select.get_substitute_aliment(
-                categorie, nutri_grade)
-            print(' This is the result of your substitute:')
-            print(substitu)
-            self.api_select.backup_substitute(substitu)
-
-        elif first_question == "2":
-            print("Voici la liste de vos alliment sauvegarder")
-            list_aliment_id = self.api_select.get_all_substitute()
-            for id in list_aliment_id:
-                self.api_select.get_aliment_substitute(id[0])
-        else:
-            input("1 ?, 2 Retrouver mes aliments substitus.")
