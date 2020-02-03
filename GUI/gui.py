@@ -4,7 +4,7 @@ from tkinter import font as tkfont
 
 import pprint
 import os
-import random
+import webbrowser
 
 pp = pprint.PrettyPrinter(indent=4)
 
@@ -93,15 +93,11 @@ class PageTwo(tk.Frame):
 class PageThree(tk.Frame):
     def __init__(self, parent, controller):
         self.api_select = SelectApi()
-        # TO DO !!!! - recupérer la value '1' categorie
         self.get_aliment = self.api_select.get_aliment(var_categorie)
 
         tk.Frame.__init__(self, parent, bg='#f0f0f0')
         label = tk.Label(self, text="This is Page 3")
         label.pack(side="top", fill="x", pady=100)
-
-        label_2 = tk.Label(self, text="Comment récupérer la value de P2????")
-        label_2.pack()
 
         v = tk.StringVar()
 
@@ -137,7 +133,7 @@ class PageFour(tk.Frame):
         self.nutri_grade = self.api_select.get_nutrition_grade(var_aliment)
         print('self.nutri_grade in P4 GUI: ', self.nutri_grade)
         print('self.categorie in P4 GUI: ', self.categorie)
-        substitue = ['0','1','2','3','4']
+        substitue = [None] * 5
         subs = self.api_select.get_substitute_aliment(
             self.categorie, self.nutri_grade)
         
@@ -158,6 +154,9 @@ class PageFour(tk.Frame):
         label = tk.Label(self, text="This is Page 4",
                         font=controller.title_font)
         label.pack(side="top", fill="x", pady=100)
+
+        def open_url():
+            webbrowser.open_new(substitue[3])
 
         container_P4 = tk.Frame(self)
         container_P4.pack()
@@ -182,8 +181,10 @@ class PageFour(tk.Frame):
                         relief="solid", width="40", height="3")
         label_6 = tk.Label(container_P4, textvariable=var_6,
                         relief="solid", width="40", height="3")
-        label_7 = tk.Label(container_P4, textvariable=var_7,
-                        relief="solid", width="40", height="3")
+        # METTRE UN BOUTTON qui va sur le lien
+        label_7 = tk.Button(container_P4, text="lien vers Open Food Fact", relief="solid", width="40", height="3", command=open_url)
+        # label_7 = tk.Label(container_P4, textvariable=var_7,
+        #                 relief="solid", width="40", height="3")
         label_8 = tk.Label(container_P4, textvariable=var_8,
                         relief="solid", width="40", height="3")
 
@@ -199,7 +200,7 @@ class PageFour(tk.Frame):
 
         var_5.set(substitue[1])
         var_6.set(substitue[2])
-        var_7.set(substitue[3])
+        #var_7.set(substitue[3])
         var_8.set(substitue[4])
 
         button = tk.Button(self, text="Go back",
