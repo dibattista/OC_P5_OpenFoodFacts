@@ -5,7 +5,10 @@
 
 ## Prerequistes
 
-## DEPENDANCE
+* Python3.6
+* MySql
+
+## Dependance
 
 * mysql-connector
 * Requests
