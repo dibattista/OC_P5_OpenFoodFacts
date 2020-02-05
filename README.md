@@ -17,10 +17,10 @@
 ## Setup
 
 Add variable environment with this command line:
-```export YOUR_HOST='localhost'```
-```export NAME_DATABASE='project_5'```
-```export USER_NAME='root'```
-```export PASSWORD_DATABASE='8783Bb@10071957'```
+```export YOUR_HOST='YOUR HOST'```
+```export NAME_DATABASE='YOUR DATABASE NAME'```
+```export USER_NAME='YOUR USER NAME'```
+```export PASSWORD_DATABASE='YOUR DATEBASE PASSWORD'```
 
 ## Launch development
 
