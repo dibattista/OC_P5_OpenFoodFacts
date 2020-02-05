@@ -20,3 +20,10 @@ Add variable d'environement with this command:
 ```export PASSWORD_DATABASE='8783Bb@10071957'```
 
 ## Launch development
+
+For launch the script to create the database:
+``` python main.py -n```
+
+
+For launch the project:
+``` python main.py```
