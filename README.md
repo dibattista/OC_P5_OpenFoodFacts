@@ -22,8 +22,11 @@ Add variable d'environement with this command:
 ## Launch development
 
 For launch the script to create the database:
-``` python main.py -n```
 
+```python main.py -n
+```
 
 For launch the project:
-``` python main.py```
+
+``` python main.py
+```
