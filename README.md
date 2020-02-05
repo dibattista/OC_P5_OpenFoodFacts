@@ -13,7 +13,7 @@
 
 ## Setup
 
-Add variable d'environement with this command:
+Add variable environment with this command line:
 ```export YOUR_HOST='localhost'```
 ```export NAME_DATABASE='project_5'```
 ```export USER_NAME='root'```
