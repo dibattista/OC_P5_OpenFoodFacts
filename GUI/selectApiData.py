@@ -1,3 +1,5 @@
+# coding=utf-8
+
 #####  TO DO  faire une nouvelle classe : interaction user
 import random
 import os
@@ -75,7 +77,7 @@ class SelectApi:
     def backup_substitute(self, substitute):
         cursor = self.mydb.cursor()
         cursor.execute(
-            "INSERT INTO substitut_aliment (aliment_id) VALUES (%s);", (substitute[0],))
+            "INSERT INTO substitute_aliment (aliment_id) VALUES (%s);", (substitute,))
 
         self.mydb.commit()
 
@@ -92,6 +94,6 @@ class SelectApi:
 
     def get_all_substitute(self):
         cursor = self.mydb.cursor()
-        cursor.execute("SELECT aliment_id FROM substitut_aliment;")
+        cursor.execute("SELECT aliment_id FROM substitute_aliment;")
         myresult = cursor.fetchall()
         return myresult
