@@ -31,6 +31,8 @@ class SelectApi:
         cursor.execute("SELECT * FROM categories;")
         #print('X          Choose a number from a categories list:       X')
         myresult = cursor.fetchall()
+
+        # translate in french the categories
         for x in myresult:
             y = list(x)
             if x[1] == 'Chocolate':
