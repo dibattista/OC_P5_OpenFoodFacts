@@ -11,18 +11,21 @@ from DataBase.connectDB import ConnectDB
 
 def export_data_json(products_values):
     liste_product = []
+
     for product in products_values:
         result = {'product_name': '', 'stores': '', 'url': '', 'nutrition_grades': ''}
         try:
             for k in result:
                 ### ici on recupère la valeur pour chaque key comme product[product_name] = Nesquik
                 result[k] = product[k]
+
             ### ici on construit une list ou on aurra k la key et leurs valeurs dans un dictonary avec les quatres key
             ### comme dans result
             liste_product.append({k: v for k, v in result.items() if v is not None})
+            # if not v 
         except:
             pass
-
+    #print('liste_product', liste_product)
     return liste_product
 
 
@@ -46,11 +49,13 @@ class Data():
             products_values_clean = export_data_json(products_values)
 
             for product_clean in products_values_clean:
+                # delete the empty string
+                if product_clean["stores"]:
+                    self.db.insert_aliments(product_clean, i + 1)
                 # bien garder le i + 1 car index commance à 0 et du coup si on ne met pas + 1 cela ne marche pas
                 ## si dessous on fait insert des aliment en fonction des categories choisi et leur index (i) qui et lie
                 ## la table aliment par une FOREIGN KEY a la table categories
-                self.db.insert_aliments(product_clean, i + 1)
-
+                
 
 
 

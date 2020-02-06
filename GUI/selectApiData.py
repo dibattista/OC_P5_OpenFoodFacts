@@ -55,24 +55,19 @@ class SelectApi:
     def get_substitute_aliment(self, categories_id, nutri_grade_choose):
         cursor = self.mydb.cursor()
 
-        if nutri_grade_choose == 'a':
-                cursor.execute(
-                    "SELECT * FROM aliment WHERE categories_id =" + categories_id + " AND nutrition_grades = 'a'")
-                myresult = cursor.fetchall()
-                #print('myresult in get_substitute_aliment SELECTAPIDATA in IF: ', myresult)
-                # because i don't know how to choose the result of the multiple substitue a have, i propose random
-                #return random.choice(myresult)
-                return myresult
-        # trouver des aliments avec un nutrition grades inferieur a celui de la presente recherche (nutri_grade_choose) dans la categories choisi
-        else:
+        # Find the min of nutrion_grade of the categories_id
+        nutrition_grade_Min = cursor.execute(
+            "SELECT Min(nutrition_grades) FROM aliment WHERE categories_id =" + categories_id)
+        nutrition_grade_Min = cursor.fetchall()
+        
+        for min_grade in nutrition_grade_Min:
+            # Find a better or equal aliment
             cursor.execute(
-                "SELECT * FROM aliment WHERE categories_id =" + categories_id + " AND nutrition_grades < '%s'" % nutri_grade_choose)
-    
+                "SELECT * FROM aliment WHERE categories_id =" + categories_id +
+                " AND nutrition_grades <= '%s'" % min_grade)
             myresult = cursor.fetchall()
-            #print('myresult in get_substitute_aliment SELECTAPIDATA in ELSE: ', myresult)
-            # because i don't know how to choose the result of the multiple substitue a have, i propose random
-            #return random.choice(myresult)
             return myresult
+
 
     def backup_substitute(self, substitute):
         cursor = self.mydb.cursor()

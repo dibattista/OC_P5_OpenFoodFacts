@@ -47,11 +47,16 @@ class PageOne(tk.Frame):
         # label = tk.Label(self, text="Choisissez ce que vous voulez faire.",
         #                 font=controller.title_font)
         # label.pack(side="top", ipady=30, pady=10, )
+        def refresh():
+            frame = PageFive(parent=controller.container,
+                            controller=controller)
+            controller.frames["PageFive"] = frame
+            frame.grid(row=0, column=0, sticky="nsew")
 
         button1 = tk.Button(
             self, text="1- Quel aliment souhaitez-vous remplacer?", command=lambda: controller.show_frame("PageTwo"))
         button2 = tk.Button(
-            self, text="2- Retrouver mes aliments substitués.", command=lambda: controller.show_frame("PageFive"))
+            self, text="2- Retrouver mes aliments substitués.", command=lambda: [refresh(), controller.show_frame("PageFive")])
 
         button1.config(font='Helvetica 14', height=5, width=40)
         button2.config(font='Helvetica 14', height=5, width=40)
@@ -210,7 +215,7 @@ class PageFour(tk.Frame):
 class PageFive(tk.Frame):
     def __init__(self, parent, controller):
         self.api_select = SelectApi()
-        global var_all_substitue
+        var_all_substitue = []
 
         #list_aliment_id = self.api_select.get_all_substitute()
         
@@ -241,6 +246,8 @@ class PageFive(tk.Frame):
         for id in list_aliment_id:
             all_aliment = self.api_select.get_aliment_substitute(id)
             var_all_substitue.append(all_aliment)
+        
+        print('var_all_substitue', var_all_substitue)
 
         for row_index, val in enumerate(var_all_substitue):
             #print('row', row)
