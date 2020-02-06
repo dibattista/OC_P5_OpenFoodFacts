@@ -247,8 +247,6 @@ class PageFive(tk.Frame):
             all_aliment = self.api_select.get_aliment_substitute(id)
             var_all_substitue.append(all_aliment)
         
-        print('var_all_substitue', var_all_substitue)
-
         for row_index, val in enumerate(var_all_substitue):
             #print('row', row)
             for cell in val:

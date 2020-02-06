@@ -32,8 +32,24 @@ class SelectApi:
         #print('X          Choose a number from a categories list:       X')
         myresult = cursor.fetchall()
         for x in myresult:
+            y = list(x)
+            if x[1] == 'Chocolate':
+                y[1] = "Chocolat"
+                x = tuple(y)
+
+            if x[1] == 'Fish':
+                y[1] = "Poisson"
+                x = tuple(y)
+            
+            if x[1] == 'Pasta':
+                y[1] = "Pates"
+                x = tuple(y)
+            
+            if x[1] == 'Milk':
+                y[1] = "Lait"
+                x = tuple(y)
+
             result.append(x)
-            #print(x)
         return result
 
     def get_aliment(self, categories_id):
