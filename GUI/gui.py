@@ -140,7 +140,7 @@ class PageFour(tk.Frame):
         substitue = [None] * 5
         subs = self.api_select.get_substitute_aliment(
             self.categorie, self.nutri_grade)
-        
+                
         for s in subs:
             substitue = s
 
@@ -154,7 +154,7 @@ class PageFour(tk.Frame):
             
         def backup_substitue():
             if backup_button["text"] == "Sauvegarder":
-                self.api_select.backup_substitute(var_aliment)
+                self.api_select.backup_substitute(substitue[0])
 
                 # change text button
                 backup_button["text"] = "C'est sauvegarder"

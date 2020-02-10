@@ -1,33 +1,32 @@
 # OC_P5_OpenFoodFacts
 
-Open Food Facts est une base de données sur les produits alimentaires, incrémenter par tous les utilisateurs du monde entier.
+Open Food Facts is a food product database, incremented by all users around the world.
 
-Ce projet interagirait avec cette l'API d'Open Food Facts en français pour récupérer les aliments et leurs propriétés, comme le grade qui vat permettre au programme de proposer un aliment plus sain.
+This project interacts with this API of Open Food Facts to recover French foods and their properties, such as the grade that will allow the program to offer a healthier food.
 
 ## User features
 
-Pour utiliser ce programme vous avez besoin de créer une nouvelle base de données pour y insérer les data de l'api qui sont récupérer et netoyer pour vous.
+To use this program you need to create a new database to insert the data from the openfoodfact API which is retrieved and cleaned for you.
+Once you have verified that the database is full you can launch the programs.
 
-Dans votre terminal vous pourrez donc lancé la création de la db de ces tables et insertons des données en un click.
+In the first page of the graphical interface two buttons will give you the choice:
+    1 - Select a food substitute.
+    2 - Find your substituted foods.
 
-Une fois que vous aurez vérifier que la base de données est bien remplit vous pourez lancé les programme.
+the second page allows you to choose a category.
+the third page to choose a food from this category.
+the fourth page:
+    * to see the healthiest food for this category
+    * to go to the open food fact page of the product
+    * save this result
+    * and go back to the first page
 
-Dans la première page deux boutons vous donnerons le choix :
-    1 - Sélectionner un aliment a remplacé.
-    2 - Retrouver ses aliments substitués.
-
-la deuxème page permet de choisir une catégorie
-la troisième page de choisir un aliment de cette catégorie
-la quatrième page:
-    de voir l'alliment le plus sain pour cette catégorie
-    de ce diriger vers la page open food fact du produit
-    de sauvegarder ce resultat
-    et de revenir a la première page
-
-Dans la cinquième page qui souvre grace au deuxième bouton de la page 1, vous trouverez le tableau
-des résulats enregistrer dans la page quatre.
+In the fifth page that opens with the second button on page 1, you will find the table
+results save in page four.
 
 ## Prerequistes
+
+You need to have installed:
 
 * Python3.6
 * MySql
@@ -36,22 +35,28 @@ des résulats enregistrer dans la page quatre.
 
 * mysql-connector
 * Requests
-* prettytable
+* tkinter
 
 ## Setup
 
-Add variable environment with this command line:
-```export YOUR_HOST='YOUR HOST'```
-```export NAME_DATABASE='YOUR DATABASE NAME'```
-```export USER_NAME='YOUR USER NAME'```
-```export PASSWORD_DATABASE='YOUR DATEBASE PASSWORD'```
+git clone https://github.com/dibattista/OC_P5_OpenFoodFacts.git
+
+If is not done yet add dependance with: `pip install -r requirements.txt`
+
+Créer un utilisateur Mysql qui a les droits de création de base de données.
+
+Add variable environment with this command line:<br />
+```export YOUR_HOST='YOUR HOST'```<br />
+```export NAME_DATABASE='YOUR DATABASE NAME'```<br />
+```export USER_NAME='YOUR USER NAME'```<br />
+```export PASSWORD_DATABASE='YOUR DATEBASE PASSWORD'```<br />
 
 ## Launch development
 
-For launch the script to create the database:
+Like I say before you can create a new database with the tables and datas in one commande line:
 
 ```python main.py -n```
 
-For launch the project:
+After you check your data you can launch the project:
 
 ```python main.py```
