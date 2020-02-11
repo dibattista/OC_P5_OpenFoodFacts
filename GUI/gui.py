@@ -4,11 +4,9 @@ from GUI.selectApiData import SelectApi
 import tkinter as tk
 from tkinter import font as tkfont
 
-import pprint
 import os
 import webbrowser
 
-pp = pprint.PrettyPrinter(indent=4)
 
 var_categorie = '0'
 var_aliment = '0'

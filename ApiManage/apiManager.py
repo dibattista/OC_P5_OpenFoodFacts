@@ -1,7 +1,6 @@
 """This is the class to extracting the data from the API Open Food Facts"""
 
-import requests, pprint
-pp = pprint.PrettyPrinter(indent=4)
+import requests
 
 class ApiManager:
     def __init__(self):
