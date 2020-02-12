@@ -43,7 +43,7 @@ git clone https://github.com/dibattista/OC_P5_OpenFoodFacts.git
 
 If is not done yet add dependance with: `pip install -r requirements.txt`
 
-Créer un utilisateur Mysql qui a les droits de création de base de données.
+Create a Mysql user who has the rights to create a database.
 
 Add variable environment with this command line:<br />
 ```export YOUR_HOST='YOUR HOST'```<br />
