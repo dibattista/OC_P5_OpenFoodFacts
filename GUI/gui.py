@@ -33,7 +33,6 @@ class MainPage(tk.Tk):
             self.frames[page_name] = frame
             frame.grid(row=0, column=0, sticky="nsew")
         
-        #print('self.frames IN MAIN PAGE', self.frames)
         self.show_frame("PageOne")
     
     def show_frame(self, page_name):
@@ -46,9 +45,7 @@ class PageOne(tk.Frame):
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent, bg='#bfbfbf')
-        # label = tk.Label(self, text="Choisissez ce que vous voulez faire.",
-        #                 font=controller.title_font)
-        # label.pack(side="top", ipady=30, pady=10, )
+
         def refresh():
             frame = PageFive(parent=controller.container,
                             controller=controller)
@@ -84,14 +81,13 @@ class PageTwo(tk.Frame):
             global var_categorie
             var_categorie = v.get()
 
-            #### ici on update la page 3
+            # Here we update the page 3.
             frame = PageThree(parent=controller.container,
                             controller=controller)
             controller.frames["PageThree"] = frame
             frame.grid(row=0, column=0, sticky="nsew")
 
-        # choose categories
-
+        # A Radiobutton for each categories.
         for value in self.get_categories:
             r1 = tk.Radiobutton(self, text=value[1], variable=v, value=value[0], indicator=0, width="40", height="2",
                                 background="light blue", command=lambda: [get_val(), controller.show_frame("PageThree")])
@@ -120,14 +116,13 @@ class PageThree(tk.Frame):
             global var_aliment
             var_aliment = v.get()
 
-            #### ici on update la page 3
+            # Here we update the page 4.
             frame = PageFour(parent=controller.container,
                             controller=controller)
             controller.frames["PageFour"] = frame
             frame.grid(row=0, column=0, sticky="nsew")
 
         for value in self.get_aliment:
-            #print('value in for P3', value)
             r1 = tk.Radiobutton(self, text=value[1], variable=v, value=value[0], indicator=0, width="35", height="1",
                                 background="light blue",
                             command=lambda: [get_val(), controller.show_frame("PageFour")])
@@ -164,7 +159,7 @@ class PageFour(tk.Frame):
             if backup_button["text"] == "Sauvegarder":
                 self.api_select.backup_substitute(substitue[0])
 
-                # change text button
+                # Change text button when the result is update
                 backup_button["text"] = "C'est sauvegarder"
             else:
                 backup_button["text"] = "Sauvegarder"
@@ -226,8 +221,6 @@ class PageFive(tk.Frame):
     def __init__(self, parent, controller):
         self.api_select = SelectApi()
         var_all_substitue = []
-
-        #list_aliment_id = self.api_select.get_all_substitute()
         
         tk.Frame.__init__(self, parent, bg='#f0f0f0')
         label = tk.Label(self, text="Liste des aliments aux meuilleurs grade", bg='#f0f0f0',
@@ -239,7 +232,6 @@ class PageFive(tk.Frame):
         self.container_P5.grid_rowconfigure(0, weight=1)
         self.container_P5.grid_columnconfigure(0, weight=1)
         
-        # TO DO !!!! - comment j'affiche la liste ????
         label_name = tk.Label(self.container_P5, text='Nom', width=40,
                         relief="solid")
         label_name.grid(row=0, column=0)
@@ -258,7 +250,6 @@ class PageFive(tk.Frame):
             var_all_substitue.append(all_aliment)
         
         for row_index, val in enumerate(var_all_substitue):
-            #print('row', row)
             for cell in val:
                 label_1 = tk.Label(self.container_P5, text=cell[1], width=40,
                                 relief="solid")
