@@ -1,9 +1,8 @@
 # coding=utf-8
 
-"""This module launch the projet_5"""
-### ce fichier est le dossier principal qui lance le projet P5 avec la commande: python main.py
-## or python main.py -n pour creer un nouvelle base
-### alias python=python3
+"""This module launch this project. Two options are possible:
+    1- Creation of database and insertion of datas with 'python main.py -n'
+    2- Start the user interface with 'python main.py' """
 
 import argparse
 import os
@@ -14,6 +13,9 @@ from DataBase.createDB import NewDB
 from ApiManage.processingApiData import Data
 
 def main():
+    """Setup the argument in commande line.
+        With the condition 
+        start the creation of database or the user interface """
 
     ap = argparse.ArgumentParser()
 
@@ -23,16 +25,16 @@ def main():
 
 
     if args.new:
-        # create new DB
+        # Create new database
         new_db = NewDB()
         new_db.create_db()
 
-        ## Add datas
+        # Add datas
         data_api = Data()
         data_api.add_categories()
         data_api.insert_aliments()
     else:
-        # start GUI
+        # Start graphical user interface
         window = Window()
         window
 

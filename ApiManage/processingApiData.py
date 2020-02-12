@@ -31,9 +31,8 @@ def export_data_json(products_values):
 
 class Data():
     def __init__(self):
-        ## changer name of self.api_data
         self.api_data = ApiManager()
-        # CONNECTION TO DB
+        # DB connection
         self.db = ConnectDB()
 
     def add_categories(self):
