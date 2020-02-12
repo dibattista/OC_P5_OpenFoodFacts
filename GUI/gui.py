@@ -13,6 +13,8 @@ var_aliment = '0'
 var_all_substitue = []
 
 class MainPage(tk.Tk):
+    """Class MainPage create all the pages when the project is lauch."""
+
     def __init__(self, *args, **kwargs):
         tk.Tk.__init__(self, *args, **kwargs)
         self.wm_geometry("1000x1200")
@@ -40,6 +42,8 @@ class MainPage(tk.Tk):
 
 
 class PageOne(tk.Frame):
+    """Class PageOne is the first page the user will see."""
+
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent, bg='#bfbfbf')
         # label = tk.Label(self, text="Choisissez ce que vous voulez faire.",
@@ -64,6 +68,8 @@ class PageOne(tk.Frame):
 
 
 class PageTwo(tk.Frame):
+    """In class PageTwo, the user can choose the categories of aliment he wish to change."""
+
     def __init__(self, parent, controller):
         self.api_select = SelectApi()
         self.get_categories = self.api_select.get_categories()
@@ -97,6 +103,8 @@ class PageTwo(tk.Frame):
 
 
 class PageThree(tk.Frame):
+    """In class PageThree, the user can choose the aliment he wish to change."""
+
     def __init__(self, parent, controller):
         self.api_select = SelectApi()
         self.get_aliment = self.api_select.get_aliment(var_categorie)
@@ -131,6 +139,8 @@ class PageThree(tk.Frame):
 
 
 class PageFour(tk.Frame):
+    """In class PageFour, the result of helthier food."""
+
     def __init__(self, parent, controller, rows=10, columns=2):
         self.api_select = SelectApi()
         self.categorie = var_categorie
@@ -211,6 +221,8 @@ class PageFour(tk.Frame):
 
 
 class PageFive(tk.Frame):
+    """In class PageFive, the table of all results of helthier food."""
+
     def __init__(self, parent, controller):
         self.api_select = SelectApi()
         var_all_substitue = []
@@ -271,6 +283,11 @@ class PageFive(tk.Frame):
 
 
 class Window:
+    """Class Window lauch the graphical user interface when it call the class MainPage.
+        Because the interface is in TKinter,
+        the method mainloop() is use to run the application
+        """
+
     def __init__(self):
         app = MainPage()
         app.mainloop()
