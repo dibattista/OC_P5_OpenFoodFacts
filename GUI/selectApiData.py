@@ -10,12 +10,10 @@ from mysql.connector import Error
 
 
 class SelectApi:
+    """
+        The class SelectApi
+    """
     def __init__(self):
-        """
-            ### TO DO WRITE GOOD COMMENTE:
-            connection a la db
-        """
-
         self.mydb = mysql.connector.connect(
             host=os.environ.get("YOUR_HOST", ''),
             database=os.environ.get("NAME_DATABASE", ''),
@@ -29,7 +27,6 @@ class SelectApi:
         cursor = self.mydb.cursor()
         result = []
         cursor.execute("SELECT * FROM categories;")
-        #print('X          Choose a number from a categories list:       X')
         myresult = cursor.fetchall()
 
         # translate in french the categories
