@@ -2,11 +2,9 @@
 
 from DataBase.connectDB import ConnectDB
 
-
-### TO USE THE CLASS, I CREATE A OBJECT, exemple db = ConnectDB()
-### IF NOT A NEW CLASS WILL BE CREATE ALL THE TIME WITH : Request().fonction()
-
 class NewDB:
+    """Class NewDB call the fonction to create the database with the tables"""
+
     def __init__(self):
         self.db = ConnectDB()
 

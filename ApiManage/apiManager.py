@@ -1,8 +1,8 @@
-"""This is the class to extracting the data from the API Open Food Facts"""
-
 import requests
 
 class ApiManager:
+    """Class ApiManager get the datas from the API Open Food Facts."""
+
     def __init__(self):
         print('hello api')
         self.URL = "https://world.openfoodfacts.org/cgi/search.pl?tagtype_0=categories&countries=France&tag_contains_0=contains&search_simple=1&action=process&page_size=1&page=1&json=1"

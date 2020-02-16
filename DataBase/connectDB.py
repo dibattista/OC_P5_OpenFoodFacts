@@ -1,7 +1,5 @@
 # coding=utf-8
 
-"""This is the class to connect at the data base"""
-
 import random
 import os
 import mysql.connector
@@ -10,32 +8,21 @@ from mysql.connector import Error
 
 
 class ConnectDB:
+    """Class ConnectDB create the database and insert datas in it."""
 
     def __init__(self):
-        """
-            ### TO DO WRITE GOOD COMMENTE:
-            connection a la db
-        """
         self.mydb = mysql.connector.connect(
             host=os.environ.get("YOUR_HOST", ''),
             database=os.environ.get("NAME_DATABASE", ''),
             user=os.environ.get("USER_NAME", ''),
             password=os.environ.get("PASSWORD_DATABASE", '')
         )
-        # if self.mydb.is_connected():
-        #     print('Connected to MySQL database projet_5')
-
-
 
     def insert_category(self, category):
         """
                     ### TO DO WRITE GOOD COMMENTE: ici on ajoute les category dans la table categories
         """
         cursor = self.mydb.cursor()
-
-        # cette syntaxe marche pour un insert avec une valeur (category)
-        # la virgule fait en sort que ça marche (category ,))
-        # on a pas besoin de la mettre avec deux valeurs exemple (category, id)
         cursor.execute('INSERT INTO categories (name) VALUES (%s);', (category ,))
         self.mydb.commit()
         print(cursor.rowcount, "record inserted in categories.")
@@ -45,16 +32,11 @@ class ConnectDB:
                     ### TO DO WRITE GOOD COMMENTE
                     ici on ajoute les aliemnts trouver dans l'api openfoodfacts dans la table aliment
         """
-        # the cursor permet l'insert en base
         cursor = self.mydb.cursor()
 
-        # si dessous on prepare la requet pour inserer en db les aliments de l'api trouver avec le get
         sql = "INSERT INTO aliment (product_name, stores, url, nutrition_grades, categories_id) VALUES ( %s, %s, %s, %s, %s );"
-        # si dessous on recupere les valeurs pour chaque key scpecifique, trouver dans le get des aliments de api openfoodfacts
         val = (val_aliment['product_name'], val_aliment['stores'], val_aliment['url'], val_aliment['nutrition_grades'], categories_id)
-        # si dessous on excute l insert en db
         cursor.execute(sql, val)
-        # si dessous le commit valide la requet sinon rien de se passe pas d'insertion en db
         self.mydb.commit()
 
         print(cursor.rowcount, "record inserted in aliment.")

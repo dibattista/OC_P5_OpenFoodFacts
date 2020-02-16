@@ -1,6 +1,5 @@
 # coding=utf-8
 
-#####  TO DO  faire une nouvelle classe : interaction user
 import random
 import os
 
@@ -10,9 +9,8 @@ from mysql.connector import Error
 
 
 class SelectApi:
-    """
-        The class SelectApi
-    """
+    """Class SelectApi select or insert the data from database."""
+
     def __init__(self):
         self.mydb = mysql.connector.connect(
             host=os.environ.get("YOUR_HOST", ''),
@@ -20,8 +18,6 @@ class SelectApi:
             user=os.environ.get("USER_NAME", ''),
             password=os.environ.get("PASSWORD_DATABASE", '')
         )
-        # if self.mydb.is_connected():
-        #     print('Connected to MySQL database projet_5')
 
     def get_categories(self):
         cursor = self.mydb.cursor()
@@ -29,7 +25,7 @@ class SelectApi:
         cursor.execute("SELECT * FROM categories;")
         myresult = cursor.fetchall()
 
-        # translate in french the categories
+        # Translate the categories in french
         for x in myresult:
             y = list(x)
             if x[1] == 'Chocolate':
@@ -64,7 +60,6 @@ class SelectApi:
         cursor.execute("SELECT nutrition_grades FROM aliment where id =" + id)
         myresult = cursor.fetchall()
         for result in myresult:
-            ## print('result in ConnectDB', result[0])
             return result[0]
 
     def get_substitute_aliment(self, categories_id, nutri_grade_choose):
@@ -76,7 +71,7 @@ class SelectApi:
         nutrition_grade_Min = cursor.fetchall()
         
         for min_grade in nutrition_grade_Min:
-            # Find a better or equal aliment
+            # Find a better or equal aliment with the nutrition_grades
             cursor.execute(
                 "SELECT * FROM aliment WHERE categories_id =" + categories_id +
                 " AND nutrition_grades <= '%s'" % min_grade)
@@ -92,8 +87,6 @@ class SelectApi:
         self.mydb.commit()
 
         print(cursor.rowcount, "save new substitute")
-
-    ## substitue d'aliment sauvegarder
 
     def get_aliment_substitute(self, aliment_id):
         id = aliment_id

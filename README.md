@@ -35,7 +35,6 @@ You need to have installed:
 
 * mysql-connector
 * Requests
-* tkinter
 
 ## Setup
 
