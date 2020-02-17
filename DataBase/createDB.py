@@ -6,6 +6,8 @@ class NewDB:
     """Class NewDB call the fonction to create the database with the tables"""
 
     def __init__(self):
+        """Param Database: connection database."""
+
         self.db = ConnectDB()
 
     def create_db(self):

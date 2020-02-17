@@ -19,21 +19,17 @@ class ConnectDB:
         )
 
     def insert_category(self, category):
-        """
-                    ### TO DO WRITE GOOD COMMENTE: ici on ajoute les category dans la table categories
-        """
+        """Insert the categories in table categories."""
+
         cursor = self.mydb.cursor()
         cursor.execute('INSERT INTO categories (name) VALUES (%s);', (category ,))
         self.mydb.commit()
         print(cursor.rowcount, "record inserted in categories.")
 
     def insert_aliments(self, val_aliment, categories_id):
-        """
-                    ### TO DO WRITE GOOD COMMENTE
-                    ici on ajoute les aliemnts trouver dans l'api openfoodfacts dans la table aliment
-        """
-        cursor = self.mydb.cursor()
+        """Insert the aliments in table aliment."""
 
+        cursor = self.mydb.cursor()
         sql = "INSERT INTO aliment (product_name, stores, url, nutrition_grades, categories_id) VALUES ( %s, %s, %s, %s, %s );"
         val = (val_aliment['product_name'], val_aliment['stores'], val_aliment['url'], val_aliment['nutrition_grades'], categories_id)
         cursor.execute(sql, val)
@@ -43,32 +39,30 @@ class ConnectDB:
 
 
     def drop_db(self):
-        # ici on suprime la db
-        cursor = self.mydb.cursor()
+        """Delete the Database project_5."""
 
+        cursor = self.mydb.cursor()
         sql = 'DROP DATABASE project_5'
         self.mydb.commit()
         cursor.execute(sql)
         print("DROP DATABASE project_5")
 
     def create_db(self):
-        # ici on creer la db
+        """Create the Database."""
+
         new_mydb = mysql.connector.connect(
             host=os.environ.get("YOUR_HOST", ''),
             user=os.environ.get("USER_NAME", ''),
             password=os.environ.get("PASSWORD_DATABASE", '')
         )
-
         mycursor = new_mydb.cursor()
-
         mycursor.execute("CREATE DATABASE project_5; USE `project_5` ")
-
         print("CREATE DATABASE project_5")
 
     def create_table_categories(self):
-        # ici on creer la table categories
-        cursor = self.mydb.cursor()
+        """Create the table categories."""
 
+        cursor = self.mydb.cursor()
         sql = 'CREATE TABLE IF NOT EXISTS `project_5`.`categories`' \
             '(`id` INT NOT NULL auto_increment, ' \
             '`name` VARCHAR(30) NOT NULL,' \
@@ -80,9 +74,9 @@ class ConnectDB:
         print("CREATE table categories")
 
     def create_table_aliment(self):
-        # ici on creer la table aliment
-        cursor = self.mydb.cursor()
+        """Create the table aliment."""
 
+        cursor = self.mydb.cursor()
         sql = 'CREATE TABLE IF NOT EXISTS `project_5`.`aliment` (' \
             '`id` INT NOT NULL auto_increment, ' \
             '`product_name` VARCHAR(1000) NOT NULL, ' \
@@ -104,9 +98,9 @@ class ConnectDB:
         print("CREATE table aliment")
 
     def create_table_substitute_aliment(self):
-        # ici on creer la table substitute_aliment
-        cursor = self.mydb.cursor()
+        """Create the table substitute_aliment."""
 
+        cursor = self.mydb.cursor()
         sql = 'CREATE TABLE IF NOT EXISTS `project_5`.`substitute_aliment` (' \
                 '`id_substitute_aliment` INT NOT NULL auto_increment, ' \
                 '`aliment_id` INT NOT NULL, ' \
